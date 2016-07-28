@@ -38,7 +38,7 @@ export default class ParallelTransform extends stream.Transform {
     _ondrain.set(this, null);
   }
 
-  static transform(maxParallel = 1, options = {}, transformFunction = null) {
+  static create(maxParallel = 1, options = {}, transformFunction = null) {
     // options parameter can optionally be left out
     if (typeof options === 'function') {
       transformFunction = options;

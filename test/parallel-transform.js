@@ -72,7 +72,7 @@ test.cb('should pass options on to the stream.Transform constructor', t => {
 });
 
 test('should allow instantiation via function call', t => {
-  const stream = ParallelTransform.transform(1, (data, encoding, done) => {
+  const stream = ParallelTransform.create(1, (data, encoding, done) => {
     done(null, data);
   });
 
