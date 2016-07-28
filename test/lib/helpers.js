@@ -3,7 +3,7 @@ import ParallelTransform from '../../src/parallel-transform';
 /**
  * Returns a mock ParallelTransform stream
  * @param {Function} parallelTransform The transformation function
- * @param {Number}   maxParallel The maximum number of
+ * @param {number}   maxParallel The maximum number of
                                  parallel transformations
  * @param {Object}   options ParallelTransform options
  * @return {Stream} A ParallelTransform stream
