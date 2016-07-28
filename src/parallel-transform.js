@@ -71,8 +71,8 @@ export default class ParallelTransform extends stream.Transform {
 
   /**
    * Parallises calls to this._transformFunction
-   * @param {?} chunk The chunk of data to be transformed
-   * @param {string} encoding Encoding, if it `chunk` is a string
+   * @param {?}        chunk The chunk of data to be transformed
+   * @param {string}   encoding Encoding, if it `chunk` is a string
    * @param {Function} done Callback to be called when finished
    **/
   _transform(chunk, encoding, done) {
@@ -170,8 +170,8 @@ export default class ParallelTransform extends stream.Transform {
   /**
    * The _transform function of the ParallelTransform stream
    * This function must be overriden by child classes
-   * @param {?} data Data to be transformed
-   * @param {string} encoding Encoding, if it `chunk` is a string
+   * @param {?}        data Data to be transformed
+   * @param {string}   encoding Encoding, if `chunk` is a string
    * @param {Function} done Callback which must be executed
    *                        when transformations have finished
    **/
