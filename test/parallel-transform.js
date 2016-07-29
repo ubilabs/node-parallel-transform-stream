@@ -78,3 +78,27 @@ test('should allow instantiation via function call', t => {
 
   t.true(new PStream() instanceof ParallelTransform);
 });
+
+test.cb('should run `maxParallel` transforms in parallel', t => {
+  const dones = [],
+    TransformStub = ParallelTransform.create(3, (data, encoding, done) => {
+      dones.push(done);
+    }),
+    transformInstance = new TransformStub();
+
+  transformInstance.on('data', () => {
+  });
+
+  transformInstance.on('end', t.end);
+
+  transformInstance.write('some data');
+  transformInstance.write('some data');
+  transformInstance.write('some data');
+  transformInstance.write('some data');
+
+  t.is(dones.length, 3);
+  dones.forEach(done => done(null, 'result'));
+  dones[dones.length - 1](null, 'result');
+
+  transformInstance.end();
+});
