@@ -53,7 +53,7 @@ export default class ParallelTransform extends stream.Transform {
       _parallelTransform = transformFunction;
     }
 
-    return new Transform();
+    return Transform;
   }
 
   /**
