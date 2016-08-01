@@ -49,11 +49,12 @@ test('should throw an error when not implementing _parallelTransform', t => {
 test.cb('should pass options on to the stream.Transform constructor', t => {
   const transformStub = sinon.stub().callsArg(2),
     data = {someKey: 'someValue'},
-    maxParallel = 1,
-    options = {objectMode: true},
+    options = {
+      maxParallel: 1,
+      objectMode: true
+    },
     ParallelTransformStub = getParallelTransformStream(
       transformStub,
-      maxParallel,
       options
     ),
     transformInstance = new ParallelTransformStub();
@@ -72,7 +73,10 @@ test.cb('should pass options on to the stream.Transform constructor', t => {
 });
 
 test('should allow instantiation via function call', t => {
-  const PStream = ParallelTransform.create(1, (data, encoding, done) => {
+  const PStream = ParallelTransform.create({
+    maxParallel: 1
+  },
+  (data, encoding, done) => {
     done(null, data);
   });
 
@@ -81,10 +85,10 @@ test('should allow instantiation via function call', t => {
 
 test.cb('should run `maxParallel` transforms in parallel', t => {
   const dones = [],
-    TransformStub = ParallelTransform.create(3, (data, encoding, done) => {
+    TransformStub = ParallelTransform.create((data, encoding, done) => {
       dones.push(done);
     }),
-    transformInstance = new TransformStub();
+    transformInstance = new TransformStub({maxParallel: 3});
 
   transformInstance.on('data', () => {
   });

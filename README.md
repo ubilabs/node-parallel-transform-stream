@@ -15,8 +15,7 @@ import ParallelTransform from 'parallel-transform-stream';
 
 class MyParallelTransformStream extends ParallelTransform {
 	constructor() {
-		const maxParallel = 50; // process up 50 transforms in parallel
-		super(maxParallel, {objectMode: true});
+		super({maxParallel: 50, objectMode: true}); // process up to 50 transforms in parallel
 	}
 
 	_parallelTransform(data, encoding, done) {
@@ -37,7 +36,7 @@ Alternatively, you can use the following shortcut function:
 ```js
 import ParallelTransform from 'parallel-transform-stream';
 
-const MyParallelTransformStream = ParallelTransform.create(50, (data, encoding, done) => {
+const MyParallelTransformStream = ParallelTransform.create((data, encoding, done) => {
 	// long-running, asynchronous operation
 	done(null, data);
 });
@@ -48,7 +47,14 @@ const MyParallelTransformStream = ParallelTransform.create(50, (data, encoding, 
 All classes extending the `ParallelTransform` class must implement the method `_parallelTransform`.  
 They may implement `_parallelFlush`, although this is not required.
 
-### API
+### API
+
+**ParallelTransform.create(transform, flush = function(done) { done(); })**
+
+* `transform` <Function> The \_transform function of the stream. See below for more details
+* `flush` <Function> The \_flush function of the stream. See below for more details 
+
+### API for implementing transforms
 
 **transform._transform(chunk, encoding, callback)**
 
@@ -79,7 +85,7 @@ import stream from 'stream';
 
 class MyTransformStream extends stream.Transform {
 	constructor() {
-		super(options);
+		super({objectMode: true});
 	}
 
 	_transform(data, encoding, done) {
@@ -97,7 +103,7 @@ import ParallelTransform from 'parallel-transform-stream';
 
 class MyTransformStream extends ParallelTransform {
 	constructor() {
-		super(50, options); // process up 50 transforms in parallel
+		super({objectMode: true});
 	}
 
 	_parallelTransform(data, encoding, done) {
@@ -109,7 +115,6 @@ class MyTransformStream extends ParallelTransform {
 
 ### Gotchas and caveats
 
-* You must pass the parallisation level to the `super()` call, or the stream will not run in parallel.
 * Calling `this.push()` will result in unexpected behaviour. Push results by calling `done(null, result)`.
-* This means that, by design, you cannot push multiple results from a single transform
 * Calling `done()` more than once will result in unexpected behaviour
+* By design, you cannot push multiple results from a single transform

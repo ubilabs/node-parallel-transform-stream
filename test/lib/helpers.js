@@ -3,8 +3,6 @@ import ParallelTransform from '../../src/parallel-transform';
 /**
  * Returns a mock ParallelTransform stream
  * @param {Function} parallelTransform The transformation function
- * @param {number}   maxParallel The maximum number of
-                                 parallel transformations
  * @param {Object}   options ParallelTransform options
  * @return {Stream} A ParallelTransform stream
  **/
@@ -12,12 +10,11 @@ export function getParallelTransformStream(
   parallelTransform = (data, done) => {
     done(null, data);
   },
-  maxParallel = 1,
-  options = {}
+  options = {maxParallel: 1}
 ) {
   class TransformTestClass extends ParallelTransform {
     constructor() {
-      super(maxParallel, options);
+      super(options);
     }
   }
 

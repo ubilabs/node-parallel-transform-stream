@@ -16,41 +16,31 @@ export default class ParallelTransform extends stream.Transform {
    * All child classes must implement the `_parallelTransform` function.
    * Child class should not implement the `_transform` and `_flush` functions.
    *
-   * @param {number} maxParallel The maximum number of
-   *                             simulatenous transformations
    * @param {Object} options Options which will be passed
    *                         to the `stream.Transform` constructor
    **/
-  constructor(maxParallel = 1, options = {}) {
+  constructor(options = {}) {
     const defaultOptions = {
-      highWaterMark: Math.max(maxParallel, 16)
+      highWaterMark: Math.max(options.maxParallel, 16),
+      maxParallel: 5
     };
 
     super(Object.assign({}, defaultOptions, options));
 
     // set default properties
-    _maxParallel.set(this, maxParallel);
+    _maxParallel.set(this, options.maxParallel);
     _destroyed.set(this, false);
     _flushed.set(this, false);
-    _buffer.set(this, cyclist(maxParallel));
+    _buffer.set(this, cyclist(options.maxParallel));
     _top.set(this, 0);
     _bottom.set(this, 0);
     _ondrain.set(this, null);
   }
 
-  static create(maxParallel = 1, options = {}, transformFunction = null) {
-    // options parameter can optionally be left out
-    if (typeof options === 'function') {
-      transformFunction = options;
-      options = {};
-    }
-
+  static create(transform, flush = done => done()) {
     class Transform extends ParallelTransform {
-      constructor() {
-        super(maxParallel, options);
-      }
-
-      _parallelTransform = transformFunction;
+      _parallelTransform = transform;
+      _parallelFlush = flush;
     }
 
     return Transform;
