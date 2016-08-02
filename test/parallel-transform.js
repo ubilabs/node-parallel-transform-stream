@@ -90,8 +90,7 @@ test.cb('should run `maxParallel` transforms in parallel', t => {
     }),
     transformInstance = new TransformStub({maxParallel: 3});
 
-  transformInstance.on('data', () => {
-  });
+  transformInstance.on('data', () => {});
 
   transformInstance.on('end', t.end);
 
@@ -105,4 +104,22 @@ test.cb('should run `maxParallel` transforms in parallel', t => {
   dones[dones.length - 1](null, 'result');
 
   transformInstance.end();
+});
+
+test.cb('should call _parallelFlush when the stream is flushing', t => {
+  const flush = sinon.stub().callsArg(0),
+    ParallelTransformStub = getParallelTransformStream(
+      sinon.stub().callsArgWith(2, null, 'some result'),
+      {maxParallel: 1},
+      flush
+    ),
+    transformInstance = new ParallelTransformStub();
+
+  transformInstance.on('data', () => {});
+  transformInstance.on('end', t.end);
+
+  transformInstance.write('some data');
+  transformInstance.end();
+
+  t.true(flush.calledOnce);
 });
