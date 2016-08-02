@@ -52,7 +52,7 @@ They may implement `_parallelFlush`, although this is not required.
 **ParallelTransform.create(transform, flush = function(done) { done(); })**
 
 * `transform` <Function> The \_transform function of the stream. See below for more details
-* `flush` <Function> The \_flush function of the stream. See below for more details 
+* `flush` <Function> The \_flush function of the stream. See below for more details
 
 ### API for implementing transforms
 
