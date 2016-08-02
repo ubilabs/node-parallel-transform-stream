@@ -20,18 +20,19 @@ export default class ParallelTransform extends stream.Transform {
    *                         to the `stream.Transform` constructor
    **/
   constructor(options = {}) {
-    const defaultOptions = {
-      highWaterMark: Math.max(options.maxParallel, 16),
-      maxParallel: 5
-    };
+    const maxParallel = options.maxParallel || 5,
+      defaultOptions = {
+        maxParallel,
+        highWaterMark: Math.max(maxParallel, 16)
+      };
 
     super(Object.assign({}, defaultOptions, options));
 
     // set default properties
-    _maxParallel.set(this, options.maxParallel);
+    _maxParallel.set(this, maxParallel);
     _destroyed.set(this, false);
     _flushed.set(this, false);
-    _buffer.set(this, cyclist(options.maxParallel));
+    _buffer.set(this, cyclist(maxParallel));
     _top.set(this, 0);
     _bottom.set(this, 0);
     _ondrain.set(this, null);
