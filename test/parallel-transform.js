@@ -91,7 +91,6 @@ test.cb('should run `maxParallel` transforms in parallel', t => {
     transformInstance = new TransformStub({maxParallel: 3});
 
   transformInstance.on('data', () => {});
-
   transformInstance.on('end', t.end);
 
   transformInstance.write('some data');
@@ -104,6 +103,31 @@ test.cb('should run `maxParallel` transforms in parallel', t => {
   dones[dones.length - 1](null, 'result');
 
   transformInstance.end();
+});
+
+test.cb('should emit results in input order', t => {
+  const dones = [],
+    TransformStub = ParallelTransform.create((data, encoding, done) => {
+      dones.push({done, data});
+    }),
+    transformInstance = new TransformStub({maxParallel: 3});
+
+  let ctr = 0;
+  transformInstance.on('data', result => {
+    t.is(result.toString(), String(ctr++));
+  });
+  transformInstance.on('end', t.end);
+
+  transformInstance.write('0');
+  transformInstance.write('1');
+  transformInstance.write('2');
+  transformInstance.write('3');
+  transformInstance.end();
+
+  dones[1].done(null, dones[1].data);
+  dones[2].done(null, dones[2].data);
+  dones[0].done(null, dones[0].data);
+  dones[3].done(null, dones[3].data);
 });
 
 test.cb('should call _parallelFlush when the stream is flushing', t => {
