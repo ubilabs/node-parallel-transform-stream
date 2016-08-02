@@ -57,7 +57,7 @@ They may implement `_parallelFlush`, although this is not required.
 
 ### API for extending ParallelTransform
 
-**transform._transform(chunk, encoding, callback)**
+**ParallelTransform._parallelTransform(chunk, encoding, callback)**
 
 * `chunk` `<Buffer>` | `<String>` The chunk to be transformed.
 * `encoding` `<String>` If the chunk is a string, then this is the encoding type. If chunk is a buffer, then this is the special value - 'buffer', ignore it in this case.
@@ -66,7 +66,7 @@ They may implement `_parallelFlush`, although this is not required.
 Please note that, as opposed to traditional NodeJS transform streams, you **MUST NOT** call `this.push` directly. Emit values through the callback function instead.  
 You **must not** call the callback more than once.
 
-**transform._flush(callback)**
+**ParallelTransform._parallelFlush(callback)**
 
 * `callback` `<Function>` A callback function to be called when the stream has finished flushing.
 
