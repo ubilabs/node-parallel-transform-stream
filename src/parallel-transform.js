@@ -14,10 +14,10 @@ export default class ParallelTransform extends stream.Transform {
   /**
    * ParallelTransform instance
    * All child classes must implement the `_parallelTransform` function.
-   * Child class should not implement the `_transform` and `_flush` functions.
+   * Child classes should not implement the `_transform` and `_flush` functions.
    *
-   * @param {Object} options Options which will be passed
-   *                         to the `stream.Transform` constructor
+   * @param {Object} options Options which will be passed to the
+   *                         `stream.Transform` constructor
    **/
   constructor(options = {}) {
     const maxParallel = options.maxParallel || 5,
@@ -38,6 +38,14 @@ export default class ParallelTransform extends stream.Transform {
     _ondrain.set(this, null);
   }
 
+  /**
+   * Helper function for easily creating ParallelTransform streams
+   *
+   * @param {Function} transform The stream's _transform function
+   * @param {Function} flush The stream's _flush function
+   * @param {Object} defaultOptions Default options for the class constructor
+   * @returns {Class} A ParallelTransform class
+   **/
   static create(transform, flush = done => done(), defaultOptions = {}) {
     class Transform extends ParallelTransform {
       constructor(options) {
