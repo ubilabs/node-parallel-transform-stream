@@ -38,8 +38,12 @@ export default class ParallelTransform extends stream.Transform {
     _ondrain.set(this, null);
   }
 
-  static create(transform, flush = done => done()) {
+  static create(transform, flush = done => done(), defaultOptions = {}) {
     class Transform extends ParallelTransform {
+      constructor(options) {
+        super(Object.assign({}, defaultOptions, options));
+      }
+
       _parallelTransform = transform;
       _parallelFlush = flush;
     }

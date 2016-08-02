@@ -49,10 +49,11 @@ They may implement `_parallelFlush`, although this is not required.
 
 ### API
 
-**ParallelTransform.create(transform, flush = function(done) { done(); })**
+**ParallelTransform.create(transform, flush = function(done) { done(); }, defaultOptions = {})**
 
 * `transform` `<Function>` The \_transform function of the stream. See below for more details
 * `flush` `<Function>` The \_flush function of the stream. See below for more details
+* `defaultOptions` `<Object>` Default options for the class constructor
 
 ### API for extending ParallelTransform
 
