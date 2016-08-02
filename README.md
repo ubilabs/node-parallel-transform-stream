@@ -23,7 +23,7 @@ class MyParallelTransformStream extends ParallelTransform {
 		done(null, data);
 	}
 
-	// this is optional, just like in stream.Transform
+	// optional, like in stream.Transform
 	_parallelFlush(done) {
 		// finish stuff, if required
 		done();
@@ -51,23 +51,23 @@ They may implement `_parallelFlush`, although this is not required.
 
 **ParallelTransform.create(transform, flush = function(done) { done(); })**
 
-* `transform` <Function> The \_transform function of the stream. See below for more details
-* `flush` <Function> The \_flush function of the stream. See below for more details
+* `transform` `<Function>` The \_transform function of the stream. See below for more details
+* `flush` `<Function>` The \_flush function of the stream. See below for more details
 
-### API for implementing transforms
+### API for extending ParallelTransform
 
 **transform._transform(chunk, encoding, callback)**
 
-* `chunk` <Buffer> | <String> The chunk to be transformed.
-* `encoding` <String> If the chunk is a string, then this is the encoding type. If chunk is a buffer, then this is the special value - 'buffer', ignore it in this case.
-* `callback` <Function> A callback function to be called after the supplied chunk has been processed. The first argument passed to the callback must be an error which has occurred during transformation, or `null`. The second argument is the result. The stream will stop processing transforms and emit an `error` event instantly if the error passed to the callback function was not `null`.
+* `chunk` `<Buffer>` | `<String>` The chunk to be transformed.
+* `encoding` `<String>` If the chunk is a string, then this is the encoding type. If chunk is a buffer, then this is the special value - 'buffer', ignore it in this case.
+* `callback` `<Function>` A callback function to be called after the supplied chunk has been processed. The first argument passed to the callback must be an error which has occurred during transformation, or `null`. The second argument is the result. The stream will stop processing transforms and emit an `error` event instantly if the error passed to the callback function was not `null`.
 
 Please note that, as opposed to traditional NodeJS transform streams, you **MUST NOT** call `this.push` directly. Emit values through the callback function instead.  
 You **must not** call the callback more than once.
 
 **transform._flush(callback)**
 
-* `callback` <Function> A callback function to be called when the stream has finished flushing.
+* `callback` `<Function>` A callback function to be called when the stream has finished flushing.
 
 `ParallelTransform` implementations may implement the transform._flush() method. This will be called when there is no more written data to be consumed, but before the 'end' event is emitted signaling the end of the Readable stream.
 
