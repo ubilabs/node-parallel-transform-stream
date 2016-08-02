@@ -57,6 +57,10 @@ They may implement `_parallelFlush`, although this is not required.
 
 ### API for extending ParallelTransform
 
+The constructor of the `ParallelTransform` class accepts all options accepted by `stream.Transform`. In addition, it accepts the `maxParallel` property, which set the maximum number of parallel transformations.
+
+All classes extending `ParallelTransform` must implement the `_parallelTransform` method, and may implement the `_parallelFlush` method.
+
 **ParallelTransform._parallelTransform(chunk, encoding, callback)**
 
 * `chunk` `<Buffer>` | `<String>` The chunk to be transformed.
