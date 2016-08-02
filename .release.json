@@ -1,0 +1,36 @@
+{
+  "non-interactive": false,
+  "dry-run": true,
+  "verbose": false,
+  "force": false,
+  "pkgFiles": ["package.json"],
+  "increment": "patch",
+  "prereleaseId": null,
+  "commitMessage": "chore(release): %s",
+  "tagName": "%s",
+  "tagAnnotation": "Release %s",
+  "buildCommand": "npm run build; npm run changelog",
+  "changelogCommand": "coventional-changelog -p angular",
+  "requireCleanWorkingDir": true,
+  "src": {
+    "pushRepo": null,
+    "beforeStartCommand": false,
+    "beforeStageCommand": false,
+    "afterReleaseCommand": false
+  },
+  "dist": {
+    "baseDir": "dist"
+  },
+  "npm": {
+    "publish": false,
+    "publishPath": ".",
+    "tag": "latest",
+    "private": false,
+    "forcePublishSourceRepo": false
+  },
+  "github": {
+    "release": false,
+    "releaseName": "Release %s",
+    "tokenRef": "GITHUB_TOKEN"
+  }
+}

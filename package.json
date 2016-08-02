@@ -4,10 +4,13 @@
   "description": "Transform streams in parallel",
   "main": "dist/parallel-transform.js",
   "scripts": {
-    "pretest": "npm run lint",
-    "test": "ava test/*.js --verbose",
+    "build": "babel ./src --out-dir ./dist",
+    "changelog": "conventional-changelog -i CHANGELOG.md -s -p angular",
     "lint": "eslint ./src ./test",
-    "build": "babel ./src --out-dir ./dist"
+    "prepublish": "npm run test && npm run build",
+    "pretest": "npm run lint",
+    "test": "ava test/*.js --verbose --timeout=5s",
+    "release": "release-it"
   },
   "ava": {
     "require": [
@@ -34,7 +37,12 @@
     "babel-plugin-transform-class-properties": "^6.10.2",
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.9.0",
+    "conventional-changelog-cli": "^1.2.0",
     "eslint": "^3.0.1",
+    "release-it": "^2.4.0",
     "sinon": "^1.17.4"
+  },
+  "engines": {
+    "node": ">=4"
   }
 }
