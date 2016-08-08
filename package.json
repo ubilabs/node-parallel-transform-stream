@@ -8,7 +8,8 @@
     "changelog": "conventional-changelog -i CHANGELOG.md -s -p angular",
     "lint": "eslint ./src ./test",
     "prepublish": "npm run test && npm run build",
-    "test": "ava test/*.js --verbose --timeout=5s",
+    "pretest": "npm run lint",
+    "test": "ava test/*.js --verbose --timeout=15s",
     "release": "release-it"
   },
   "ava": {
