@@ -8,7 +8,7 @@ const _maxParallel = new WeakMap(),
   _buffer = new WeakMap(),
   _top = new WeakMap(),
   _bottom = new WeakMap(),
-  _ondrain = new WeakMap();
+  _onDrain = new WeakMap();
 
 export default class ParallelTransform extends stream.Transform {
   /**
@@ -35,7 +35,7 @@ export default class ParallelTransform extends stream.Transform {
     _buffer.set(this, cyclist(maxParallel));
     _top.set(this, 0);
     _bottom.set(this, 0);
-    _ondrain.set(this, null);
+    _onDrain.set(this, null);
   }
 
   /**
@@ -75,7 +75,7 @@ export default class ParallelTransform extends stream.Transform {
   /**
    * Parallises calls to this._transformFunction
    * @param {?}        chunk The chunk of data to be transformed
-   * @param {string}   encoding Encoding, if it `chunk` is a string
+   * @param {string}   encoding Encoding, if `chunk` is a string
    * @param {Function} done Callback to be called when finished
    **/
   _transform(chunk, encoding, done) {
@@ -110,7 +110,7 @@ export default class ParallelTransform extends stream.Transform {
     }
 
     // otherwise wait until a transformation finished
-    _ondrain.set(this, done);
+    _onDrain.set(this, done);
   }
 
   /**
@@ -119,7 +119,7 @@ export default class ParallelTransform extends stream.Transform {
    **/
   _flush(done) {
     _flushed.set(this, true);
-    _ondrain.set(this, () => {
+    _onDrain.set(this, () => {
       this._parallelFlush(done);
     });
     this._drain();
@@ -149,11 +149,11 @@ export default class ParallelTransform extends stream.Transform {
       this.push(data);
     }
 
-    // call `ondrain` if the buffer is drained
-    const ondrain = _ondrain.get(this);
-    if (this._drained() && ondrain) {
-      _ondrain.set(this, null);
-      ondrain();
+    // call `onDrain` if the buffer is drained
+    const onDrain = _onDrain.get(this);
+    if (this._drained() && onDrain) {
+      _onDrain.set(this, null);
+      onDrain();
     }
   }
 
