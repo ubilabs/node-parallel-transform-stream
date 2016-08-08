@@ -96,7 +96,7 @@ export default class ParallelTransform extends stream.Transform {
       }
 
       // insert result into corresponding place in buffer
-      const result = typeof data === 'undefined' || data === null ? null : data;
+      const result = typeof data === 'undefined' ? null : data;
       _buffer.get(this).put(pos, result);
 
       // attempt to drain the buffer
