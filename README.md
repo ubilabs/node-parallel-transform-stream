@@ -51,8 +51,8 @@ They may implement `_parallelFlush`, although this is not required.
 
 **ParallelTransform.create(transform, flush = function(done) { done(); }, defaultOptions = {})**
 
-* `transform` `<Function>` The \_transform function of the stream. See below for more details
-* `flush` `<Function>` The \_flush function of the stream. See below for more details
+* `transform` `<Function>` The \_transform function of the stream. [See below](#api-for-extending-paralleltransform) for more details
+* `flush` `<Function>` The \_flush function of the stream. [See below](#api-for-extending-paralleltransform) for more details
 * `defaultOptions` `<Object>` Default options for the class constructor
 
 ### API for extending ParallelTransform
@@ -67,7 +67,7 @@ All classes extending `ParallelTransform` must implement the `_parallelTransform
 * `encoding` `<String>` If the chunk is a string, then this is the encoding type. If chunk is a buffer, then this is the special value - 'buffer', ignore it in this case.
 * `callback` `<Function>` A callback function to be called after the supplied chunk has been processed. The first argument passed to the callback must be an error which has occurred during transformation, or `null`. The second argument is the result. The stream will stop processing transforms and emit an `error` event instantly if the error passed to the callback function was not `null`.
 
-Please note that, as opposed to traditional NodeJS transform streams, you **MUST NOT** call `this.push` directly. Emit values through the callback function instead.  
+*Please note* that, as opposed to traditional NodeJS transform streams, you **MUST NOT** call `this.push` directly. Emit values through the callback function instead.  
 You **must not** call the callback more than once.
 
 **ParallelTransform._parallelFlush(callback)**
