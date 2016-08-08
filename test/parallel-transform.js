@@ -73,14 +73,14 @@ test.cb('should pass options on to the stream.Transform constructor', t => {
 });
 
 test('should allow instantiation via function call', t => {
-  const PStream = ParallelTransform.create({
+  const ParallelStream = ParallelTransform.create({
     maxParallel: 1
   },
   (data, encoding, done) => {
     done(null, data);
   });
 
-  t.true(new PStream() instanceof ParallelTransform);
+  t.true(new ParallelStream() instanceof ParallelTransform);
 });
 
 test.cb('should run `maxParallel` transforms in parallel', t => {
