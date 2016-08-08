@@ -43,7 +43,7 @@ test('should throw an error when not implementing _parallelTransform', t => {
 
   t.throws(() => {
     transformInstance.write('some data');
-  }, 'Not implemented');
+  }, '_parallelTransform not implemented');
 });
 
 test.cb('should pass options on to the stream.Transform constructor', t => {

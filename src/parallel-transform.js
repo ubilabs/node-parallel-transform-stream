@@ -179,7 +179,7 @@ export default class ParallelTransform extends stream.Transform {
    *                        when transformations have finished
    **/
   _parallelTransform(data, encoding, done) { // eslint-disable-line no-unused-vars, max-len
-    throw new Error('Not implemented');
+    throw new Error('_parallelTransform not implemented');
   }
 
   /**
