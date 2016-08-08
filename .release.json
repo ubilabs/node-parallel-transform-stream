@@ -1,6 +1,6 @@
 {
   "non-interactive": false,
-  "dry-run": true,
+  "dry-run": false,
   "verbose": false,
   "force": false,
   "pkgFiles": ["package.json"],
@@ -22,7 +22,7 @@
     "baseDir": "dist"
   },
   "npm": {
-    "publish": false,
+    "publish": true,
     "publishPath": ".",
     "tag": "latest",
     "private": false,

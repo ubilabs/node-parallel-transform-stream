@@ -1,5 +1,5 @@
 {
-  "name": "@caerostris/parallel-transform-stream",
+  "name": "parallel-transform-stream",
   "version": "0.0.1",
   "description": "Transform streams in parallel",
   "main": "dist/parallel-transform.js",
@@ -8,7 +8,6 @@
     "changelog": "conventional-changelog -i CHANGELOG.md -s -p angular",
     "lint": "eslint ./src ./test",
     "prepublish": "npm run test && npm run build",
-    "pretest": "npm run lint",
     "test": "ava test/*.js --verbose --timeout=5s",
     "release": "release-it"
   },
