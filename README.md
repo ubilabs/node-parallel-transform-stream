@@ -1,4 +1,4 @@
-# Parallel Transform Stream
+# Parallel Transform Stream [![Build Status](https://travis-ci.org/ubilabs/node-parallel-transform-stream.svg?branch=master)](https://travis-ci.org/ubilabs/node-parallel-transform-stream)
 
 A NodeJS transform stream which runs transformations in parallel and preserves input order.
 
