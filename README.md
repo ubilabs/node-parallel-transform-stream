@@ -126,23 +126,3 @@ class MyTransformStream extends ParallelTransform {
 * Calling `this.push()` will result in unexpected behaviour. Push results by calling `done(null, result)`.
 * Calling `done()` more than once will result in unexpected behaviour
 * By design, you cannot push multiple results from a single transform
-
-## Contribution
-
-Clone the repository and run:
-
-```sh
-npm install
-```
-
-To run the tests, run:
-
-```
-npm test
-```
-
-To make a release, run:
-
-```
-npm run release patch|minor|major
-```
