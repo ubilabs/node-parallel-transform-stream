@@ -1,6 +1,6 @@
 {
   "name": "parallel-transform-stream",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "stream.Transform with parallel transforms",
   "main": "dist/parallel-transform.js",
   "scripts": {
