@@ -1,5 +1,9 @@
-.gitignore
-.git
-.release.json
 .babelrc
 .eslintrc
+.git
+.gitignore
+.release.json
+.travis.yml
+node_modules
+src
+test
