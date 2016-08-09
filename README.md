@@ -6,6 +6,9 @@ A NodeJS transform stream which runs transformations in parallel and preserves i
 npm install parallel-transform-stream --save
 ```
 
+This module's core is based on [parallel-transform](https://www.npmjs.com/package/parallel-transform).  
+It was fully rewritten in ES6, and provides a more flexible, inheritance-based interface.
+
 ## Usage
 
 This module is (almost) a drop-in replacement for standard NodeJS transform streams.
@@ -123,3 +126,23 @@ class MyTransformStream extends ParallelTransform {
 * Calling `this.push()` will result in unexpected behaviour. Push results by calling `done(null, result)`.
 * Calling `done()` more than once will result in unexpected behaviour
 * By design, you cannot push multiple results from a single transform
+
+## Contribution
+
+Clone the repository and run:
+
+```sh
+npm install
+```
+
+To run the tests, run:
+
+```
+npm test
+```
+
+To make a release, run:
+
+```
+npm run release patch|minor|major
+```
