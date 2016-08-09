@@ -30,6 +30,7 @@
   "dependencies": {
     "cyclist": "^1.0.1"
   },
+  "repository": "ubilabs/node-parallel-transform-stream",
   "devDependencies": {
     "ava": "^0.15.2",
     "babel-cli": "^6.10.1",
